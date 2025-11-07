@@ -27,12 +27,18 @@ function injectCustomCss(css) {
 // 保存されたカスタムCSSを読み込み
 async function loadAndApplyCustomCss() {
   try {
+    // 拡張機能コンテキストが有効かチェック
+    if (!chrome.runtime?.id) {
+      console.warn('Extension context invalidated, skipping CSS load');
+      return;
+    }
+
     const result = await chrome.storage.local.get(['customCss']);
     if (result.customCss) {
       injectCustomCss(result.customCss);
     }
   } catch (error) {
-    console.error('Failed to load custom CSS:', error);
+    console.warn('Failed to load custom CSS:', error.message);
   }
 }
 
@@ -64,23 +70,38 @@ async function checkUrlVisited(url) {
 
   // 新規チェックを開始
   const checkPromise = new Promise((resolve) => {
-    chrome.runtime.sendMessage(
-      { action: 'checkUrl', url: normalizedUrl },
-      (response) => {
-        if (chrome.runtime.lastError) {
-          console.error('Error checking URL:', chrome.runtime.lastError);
-          resolve(false);
-          return;
-        }
-
-        const isVisited = response?.isVisited || false;
-        // キャッシュに保存
-        urlCache.set(normalizedUrl, isVisited);
-        // 処理中リストから削除
+    try {
+      // 拡張機能コンテキストが有効かチェック
+      if (!chrome.runtime?.id) {
+        console.warn('Extension context invalidated, skipping URL check');
         pendingChecks.delete(normalizedUrl);
-        resolve(isVisited);
+        resolve(false);
+        return;
       }
-    );
+
+      chrome.runtime.sendMessage(
+        { action: 'checkUrl', url: normalizedUrl },
+        (response) => {
+          if (chrome.runtime.lastError) {
+            console.warn('Error checking URL:', chrome.runtime.lastError.message);
+            pendingChecks.delete(normalizedUrl);
+            resolve(false);
+            return;
+          }
+
+          const isVisited = response?.isVisited || false;
+          // キャッシュに保存
+          urlCache.set(normalizedUrl, isVisited);
+          // 処理中リストから削除
+          pendingChecks.delete(normalizedUrl);
+          resolve(isVisited);
+        }
+      );
+    } catch (error) {
+      console.warn('Exception in checkUrlVisited:', error.message);
+      pendingChecks.delete(normalizedUrl);
+      resolve(false);
+    }
   });
 
   pendingChecks.set(normalizedUrl, checkPromise);
@@ -102,31 +123,43 @@ async function checkUrlsBatch(urls) {
 
   // 未キャッシュのURLをバックグラウンドに問い合わせ
   return new Promise((resolve) => {
-    chrome.runtime.sendMessage(
-      { action: 'checkUrls', urls: uncachedUrls },
-      (response) => {
-        if (chrome.runtime.lastError) {
-          console.error('Error checking URLs:', chrome.runtime.lastError);
-          resolve(uniqueUrls.map(url => ({ url, isVisited: false })));
-          return;
-        }
-
-        // キャッシュに保存
-        if (response?.results) {
-          response.results.forEach(({ url, isVisited }) => {
-            urlCache.set(url, isVisited);
-          });
-        }
-
-        // 全てのURLの結果を返す（キャッシュ済みも含む）
-        const allResults = uniqueUrls.map(url => ({
-          url,
-          isVisited: urlCache.get(url) || false
-        }));
-
-        resolve(allResults);
+    try {
+      // 拡張機能コンテキストが有効かチェック
+      if (!chrome.runtime?.id) {
+        console.warn('Extension context invalidated, skipping URL check');
+        resolve(uniqueUrls.map(url => ({ url, isVisited: false })));
+        return;
       }
-    );
+
+      chrome.runtime.sendMessage(
+        { action: 'checkUrls', urls: uncachedUrls },
+        (response) => {
+          if (chrome.runtime.lastError) {
+            console.warn('Error checking URLs:', chrome.runtime.lastError.message);
+            resolve(uniqueUrls.map(url => ({ url, isVisited: false })));
+            return;
+          }
+
+          // キャッシュに保存
+          if (response?.results) {
+            response.results.forEach(({ url, isVisited }) => {
+              urlCache.set(url, isVisited);
+            });
+          }
+
+          // 全てのURLの結果を返す（キャッシュ済みも含む）
+          const allResults = uniqueUrls.map(url => ({
+            url,
+            isVisited: urlCache.get(url) || false
+          }));
+
+          resolve(allResults);
+        }
+      );
+    } catch (error) {
+      console.warn('Exception in checkUrlsBatch:', error.message);
+      resolve(uniqueUrls.map(url => ({ url, isVisited: false })));
+    }
   });
 }
 
