@@ -249,7 +249,7 @@ async function resetCustomCss() {
 
   try {
     await chrome.storage.local.remove('customCss');
-    customCssInput.value = '';
+    customCssInput.value = DEFAULT_CSS;
 
     // 全てのタブにメッセージを送信してCSSをリセット
     const tabs = await chrome.tabs.query({});

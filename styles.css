@@ -1,19 +1,23 @@
-/* 永続的に記録された訪問済みリンクのスタイル（デフォルト） */
-a.extension-recalled {
-  border: 2px solid #0088AA !important;
-  border-radius: 3px !important;
-  padding: 2px 4px !important;
-  background-color: rgba(0, 136, 170, 0.05) !important;
-}
-
-/* ホバー時のスタイル */
-a.extension-recalled:hover {
-  border-color: #006688 !important;
-  background-color: rgba(0, 136, 170, 0.1) !important;
-}
-
-/* アクセシビリティ: フォーカス時のスタイル */
-a.extension-recalled:focus {
-  outline: 2px solid #0088AA !important;
-  outline-offset: 2px !important;
-}
+/*
+ * styles.css - デフォルトではスタイルを適用しません
+ * ユーザーがカスタムCSSを設定した場合のみ、そのスタイルが適用されます
+ *
+ * デフォルトスタイルの例（参考用）:
+ *
+ * a.extension-recalled {
+ *   border: 2px solid #0088AA !important;
+ *   border-radius: 3px !important;
+ *   padding: 2px 4px !important;
+ *   background-color: rgba(0, 136, 170, 0.05) !important;
+ * }
+ *
+ * a.extension-recalled:hover {
+ *   border-color: #006688 !important;
+ *   background-color: rgba(0, 136, 170, 0.1) !important;
+ * }
+ *
+ * a.extension-recalled:focus {
+ *   outline: 2px solid #0088AA !important;
+ *   outline-offset: 2px !important;
+ * }
+ */
