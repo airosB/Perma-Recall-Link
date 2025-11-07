@@ -138,7 +138,7 @@
     "description": "CSS input label"
   },
   "cssHint": {
-    "message": "※ Enter custom CSS. If blank, no style will be applied.",
+    "message": "※ Enter custom CSS. If blank, no style will be applied (useful when combining with other extensions like site-specific CSS tools).",
     "description": "CSS hint text"
   },
   "cssSaveButton": {

@@ -138,7 +138,7 @@
     "description": "CSS入力欄のラベル"
   },
   "cssHint": {
-    "message": "※ カスタムCSSを入力してください。空白の場合はスタイルが適用されません。",
+    "message": "※ カスタムCSSを入力してください。空白の場合はスタイルが適用されません（サイトごとのCSSなど別拡張機能と組み合わせるとき用）。",
     "description": "CSSヒントテキスト"
   },
   "cssSaveButton": {
