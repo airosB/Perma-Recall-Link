@@ -124,5 +124,45 @@
         "example": "1.0.0"
       }
     }
+  },
+  "cssSettingsTitle": {
+    "message": "スタイル設定",
+    "description": "CSSスタイル設定セクションのタイトル"
+  },
+  "cssPreviewLabel": {
+    "message": "プレビュー:",
+    "description": "CSSプレビューのラベル"
+  },
+  "cssPreviewLink": {
+    "message": "訪問済みリンクの例",
+    "description": "CSSプレビューリンクのテキスト"
+  },
+  "cssInputLabel": {
+    "message": "カスタムCSS:",
+    "description": "CSS入力欄のラベル"
+  },
+  "cssHint": {
+    "message": "※ カスタムCSSを入力してください。空白の場合はデフォルトスタイルが適用されます。",
+    "description": "CSSヒントテキスト"
+  },
+  "cssSaveButton": {
+    "message": "保存",
+    "description": "CSS保存ボタンのテキスト"
+  },
+  "cssResetButton": {
+    "message": "デフォルトに戻す",
+    "description": "CSSリセットボタンのテキスト"
+  },
+  "cssSaveSuccess": {
+    "message": "カスタムCSSを保存しました",
+    "description": "CSS保存成功メッセージ"
+  },
+  "cssResetConfirm": {
+    "message": "デフォルトスタイルに戻しますか？",
+    "description": "CSSリセット確認メッセージ"
+  },
+  "cssResetSuccess": {
+    "message": "デフォルトスタイルに戻しました",
+    "description": "CSSリセット成功メッセージ"
   }
 }

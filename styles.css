@@ -1,27 +1,19 @@
-/* 永続的に記録された訪問済みリンクのスタイル */
+/* 永続的に記録された訪問済みリンクのスタイル（デフォルト） */
 a.extension-recalled {
-  color: #AA00AA !important;
-  border-bottom: 1px dotted #AA00AA !important;
+  border: 2px solid #0088AA !important;
+  border-radius: 3px !important;
+  padding: 2px 4px !important;
+  background-color: rgba(0, 136, 170, 0.05) !important;
 }
 
 /* ホバー時のスタイル */
 a.extension-recalled:hover {
-  color: #880088 !important;
-  border-bottom: 1px solid #880088 !important;
-}
-
-/* 訪問済みリンクに追加の視覚的フィードバック */
-a.extension-recalled::before {
-  content: '';
-  display: inline-block;
-  width: 0;
-  height: 0;
-  margin-right: 0;
-  transition: margin-right 0.2s ease;
+  border-color: #006688 !important;
+  background-color: rgba(0, 136, 170, 0.1) !important;
 }
 
 /* アクセシビリティ: フォーカス時のスタイル */
 a.extension-recalled:focus {
-  outline: 2px solid #AA00AA !important;
+  outline: 2px solid #0088AA !important;
   outline-offset: 2px !important;
 }

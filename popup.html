@@ -49,6 +49,32 @@
       </div>
     </section>
 
+    <section class="css-settings">
+      <h2 data-i18n="cssSettingsTitle">スタイル設定</h2>
+
+      <div class="css-preview">
+        <p data-i18n="cssPreviewLabel">プレビュー:</p>
+        <a href="#" class="preview-link extension-recalled" id="previewLink" data-i18n="cssPreviewLink">訪問済みリンクの例</a>
+      </div>
+
+      <div class="css-input-group">
+        <label for="customCss" data-i18n="cssInputLabel">カスタムCSS:</label>
+        <textarea id="customCss" class="css-textarea" rows="8" placeholder="a.extension-recalled {&#10;  border: 2px solid #0088AA !important;&#10;  border-radius: 3px !important;&#10;  padding: 2px 4px !important;&#10;  background-color: rgba(0, 136, 170, 0.05) !important;&#10;}"></textarea>
+        <p class="css-hint" data-i18n="cssHint">※ カスタムCSSを入力してください。空白の場合はデフォルトスタイルが適用されます。</p>
+      </div>
+
+      <div class="css-actions">
+        <button id="saveCssBtn" class="btn btn-primary">
+          <span class="btn-icon">💾</span>
+          <span data-i18n="cssSaveButton">保存</span>
+        </button>
+        <button id="resetCssBtn" class="btn btn-secondary">
+          <span class="btn-icon">🔄</span>
+          <span data-i18n="cssResetButton">デフォルトに戻す</span>
+        </button>
+      </div>
+    </section>
+
     <section class="status">
       <div id="statusMessage" class="status-message"></div>
       <div id="progressBar" class="progress-bar" style="display: none;">

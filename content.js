@@ -7,6 +7,35 @@ const pendingChecks = new Map();
 // CSSクラス名
 const VISITED_CLASS = 'extension-recalled';
 
+// カスタムCSSをページに注入
+function injectCustomCss(css) {
+  // 既存のカスタムスタイルを削除
+  const existingStyle = document.getElementById('perma-recall-custom-style');
+  if (existingStyle) {
+    existingStyle.remove();
+  }
+
+  // カスタムCSSがある場合のみ注入
+  if (css && css.trim()) {
+    const style = document.createElement('style');
+    style.id = 'perma-recall-custom-style';
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+}
+
+// 保存されたカスタムCSSを読み込み
+async function loadAndApplyCustomCss() {
+  try {
+    const result = await chrome.storage.local.get(['customCss']);
+    if (result.customCss) {
+      injectCustomCss(result.customCss);
+    }
+  } catch (error) {
+    console.error('Failed to load custom CSS:', error);
+  }
+}
+
 // URLを正規化（オプション：将来的な拡張用）
 function normalizeUrl(url) {
   try {
@@ -173,6 +202,9 @@ const observer = new MutationObserver((mutations) => {
 
 // 初期化
 function initialize() {
+  // カスタムCSSを読み込んで適用
+  loadAndApplyCustomCss();
+
   // 初回処理
   processLinks();
 
@@ -184,6 +216,14 @@ function initialize() {
 
   console.log('Perma-Recall Link initialized');
 }
+
+// ポップアップからのCSSアップデートメッセージをリッスン
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'updateCss') {
+    injectCustomCss(request.css);
+    sendResponse({ success: true });
+  }
+});
 
 // ページ読み込み完了後に実行
 if (document.readyState === 'loading') {

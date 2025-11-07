@@ -30,6 +30,10 @@ const statusMessage = document.getElementById('statusMessage');
 const progressBar = document.getElementById('progressBar');
 const progressFill = document.getElementById('progressFill');
 const progressText = document.getElementById('progressText');
+const customCssInput = document.getElementById('customCss');
+const saveCssBtn = document.getElementById('saveCssBtn');
+const resetCssBtn = document.getElementById('resetCssBtn');
+const previewLink = document.getElementById('previewLink');
 
 // ステータスメッセージを表示
 function showStatus(message, type = 'info') {
@@ -174,12 +178,113 @@ async function clearHistory() {
   }
 }
 
+// カスタムCSSの読み込み
+async function loadCustomCss() {
+  try {
+    const result = await chrome.storage.local.get(['customCss']);
+    if (result.customCss) {
+      customCssInput.value = result.customCss;
+      applyPreviewCss(result.customCss);
+    }
+  } catch (error) {
+    console.error('Failed to load custom CSS:', error);
+  }
+}
+
+// プレビューにCSSを適用
+function applyPreviewCss(css) {
+  // 既存のプレビュースタイルを削除
+  const existingStyle = document.getElementById('preview-style');
+  if (existingStyle) {
+    existingStyle.remove();
+  }
+
+  // 新しいスタイルを追加
+  if (css && css.trim()) {
+    const style = document.createElement('style');
+    style.id = 'preview-style';
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+}
+
+// カスタムCSSの保存
+async function saveCustomCss() {
+  const css = customCssInput.value.trim();
+
+  try {
+    await chrome.storage.local.set({ customCss: css });
+
+    // 全てのタブにメッセージを送信してCSSを更新
+    const tabs = await chrome.tabs.query({});
+    tabs.forEach(tab => {
+      chrome.tabs.sendMessage(tab.id, {
+        action: 'updateCss',
+        css: css
+      }).catch(() => {
+        // タブがコンテンツスクリプトを持っていない場合はエラーを無視
+      });
+    });
+
+    applyPreviewCss(css);
+    showStatus(getMessage('cssSaveSuccess') || 'CSS保存完了', 'success');
+  } catch (error) {
+    console.error('Failed to save custom CSS:', error);
+    showStatus(getMessage('statusError', [error.message]), 'error');
+  }
+}
+
+// CSSをデフォルトにリセット
+async function resetCustomCss() {
+  if (!confirm(getMessage('cssResetConfirm') || 'デフォルトスタイルに戻しますか？')) {
+    return;
+  }
+
+  try {
+    await chrome.storage.local.remove('customCss');
+    customCssInput.value = '';
+
+    // 全てのタブにメッセージを送信してCSSをリセット
+    const tabs = await chrome.tabs.query({});
+    tabs.forEach(tab => {
+      chrome.tabs.sendMessage(tab.id, {
+        action: 'updateCss',
+        css: ''
+      }).catch(() => {});
+    });
+
+    // プレビューのカスタムスタイルを削除
+    const existingStyle = document.getElementById('preview-style');
+    if (existingStyle) {
+      existingStyle.remove();
+    }
+
+    showStatus(getMessage('cssResetSuccess') || 'デフォルトスタイルに戻しました', 'success');
+  } catch (error) {
+    console.error('Failed to reset CSS:', error);
+    showStatus(getMessage('statusError', [error.message]), 'error');
+  }
+}
+
+// CSS入力のリアルタイムプレビュー
+customCssInput.addEventListener('input', () => {
+  applyPreviewCss(customCssInput.value);
+});
+
 // イベントリスナーの設定
 importBtn.addEventListener('click', importHistory);
 clearBtn.addEventListener('click', clearHistory);
+saveCssBtn.addEventListener('click', saveCustomCss);
+resetCssBtn.addEventListener('click', resetCustomCss);
+
+// プレビューリンクのクリックを無効化
+previewLink.addEventListener('click', (e) => {
+  e.preventDefault();
+});
 
 // 初期化
 document.addEventListener('DOMContentLoaded', () => {
   localizeHtmlPage();
   loadStats();
+  loadCustomCss();
 });

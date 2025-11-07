@@ -124,5 +124,45 @@
         "example": "1.0.0"
       }
     }
+  },
+  "cssSettingsTitle": {
+    "message": "Style Settings",
+    "description": "CSS style settings section title"
+  },
+  "cssPreviewLabel": {
+    "message": "Preview:",
+    "description": "CSS preview label"
+  },
+  "cssPreviewLink": {
+    "message": "Example visited link",
+    "description": "CSS preview link text"
+  },
+  "cssInputLabel": {
+    "message": "Custom CSS:",
+    "description": "CSS input label"
+  },
+  "cssHint": {
+    "message": "※ Enter custom CSS. If blank, the default style will be applied.",
+    "description": "CSS hint text"
+  },
+  "cssSaveButton": {
+    "message": "Save",
+    "description": "CSS save button text"
+  },
+  "cssResetButton": {
+    "message": "Reset to Default",
+    "description": "CSS reset button text"
+  },
+  "cssSaveSuccess": {
+    "message": "Custom CSS saved successfully",
+    "description": "CSS save success message"
+  },
+  "cssResetConfirm": {
+    "message": "Reset to default style?",
+    "description": "CSS reset confirmation message"
+  },
+  "cssResetSuccess": {
+    "message": "Reset to default style",
+    "description": "CSS reset success message"
   }
 }
