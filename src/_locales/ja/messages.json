@@ -1,0 +1,184 @@
+{
+  "extensionName": {
+    "message": "Perma-Recall Link",
+    "description": "拡張機能の名前"
+  },
+  "extensionDescription": {
+    "message": "Chromeの90日制限を超えて永続的に訪問履歴を保存し、訪問済みリンクを視覚的にマーク",
+    "description": "拡張機能の説明"
+  },
+  "extensionTitle": {
+    "message": "Perma-Recall Link 設定",
+    "description": "拡張機能のタイトル"
+  },
+  "popupTitle": {
+    "message": "Perma-Recall Link",
+    "description": "ポップアップのタイトル"
+  },
+  "popupSubtitle": {
+    "message": "履歴管理設定",
+    "description": "ポップアップのサブタイトル"
+  },
+  "statsTitle": {
+    "message": "統計情報",
+    "description": "統計情報セクションのタイトル"
+  },
+  "statsUrlCount": {
+    "message": "保存済みURL数:",
+    "description": "URL数のラベル"
+  },
+  "statsLastImport": {
+    "message": "最終インポート:",
+    "description": "最終インポート日時のラベル"
+  },
+  "statsLoading": {
+    "message": "読み込み中...",
+    "description": "読み込み中の表示"
+  },
+  "statsNotExecuted": {
+    "message": "未実行",
+    "description": "未実行の表示"
+  },
+  "actionsTitle": {
+    "message": "履歴操作",
+    "description": "アクションセクションのタイトル"
+  },
+  "importButton": {
+    "message": "履歴を再インポート",
+    "description": "インポートボタンのテキスト"
+  },
+  "importDescription": {
+    "message": "過去90日分の訪問履歴を再度IndexedDBにインポートします",
+    "description": "インポート操作の説明"
+  },
+  "clearButton": {
+    "message": "履歴をクリア",
+    "description": "クリアボタンのテキスト"
+  },
+  "clearDescription": {
+    "message": "保存されている全ての訪問履歴データを削除します（注意：元に戻せません）",
+    "description": "クリア操作の説明"
+  },
+  "importConfirm": {
+    "message": "過去90日分の履歴を再インポートしますか？\n既存のデータは保持されたまま、新しいURLが追加されます。",
+    "description": "インポート確認メッセージ"
+  },
+  "clearConfirm": {
+    "message": "ブラウザの履歴は消さず、この拡張機能に保存された履歴だけをクリアします。よろしいですか？",
+    "description": "クリア確認メッセージ"
+  },
+  "statusImporting": {
+    "message": "履歴をインポート中...",
+    "description": "インポート中のステータス"
+  },
+  "statusClearing": {
+    "message": "履歴をクリア中...",
+    "description": "クリア中のステータス"
+  },
+  "statusImportComplete": {
+    "message": "インポート完了: $COUNT$ 件のURLを処理しました",
+    "description": "インポート完了メッセージ",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1000"
+      }
+    }
+  },
+  "statusClearComplete": {
+    "message": "履歴データを全て削除しました",
+    "description": "クリア完了メッセージ"
+  },
+  "statusError": {
+    "message": "エラー: $ERROR$",
+    "description": "エラーメッセージ",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Database error"
+      }
+    }
+  },
+  "progressImporting": {
+    "message": "インポート中...",
+    "description": "進行中の表示"
+  },
+  "progressClearing": {
+    "message": "クリア中...",
+    "description": "クリア中の表示"
+  },
+  "progressComplete": {
+    "message": "完了",
+    "description": "完了の表示"
+  },
+  "version": {
+    "message": "Version $VERSION$",
+    "description": "バージョン表示",
+    "placeholders": {
+      "version": {
+        "content": "$1",
+        "example": "1.0.0"
+      }
+    }
+  },
+  "cssSettingsTitle": {
+    "message": "スタイル設定",
+    "description": "CSSスタイル設定セクションのタイトル"
+  },
+  "cssPreviewLabel": {
+    "message": "プレビュー:",
+    "description": "CSSプレビューのラベル"
+  },
+  "cssPreviewLink": {
+    "message": "訪問済みリンクの例",
+    "description": "CSSプレビューリンクのテキスト"
+  },
+  "cssInputLabel": {
+    "message": "カスタムCSS:",
+    "description": "CSS入力欄のラベル"
+  },
+  "cssHint": {
+    "message": "※ カスタムCSSを入力してください。空白の場合はスタイルが適用されません（サイトごとのCSSなど別拡張機能と組み合わせるとき用）。",
+    "description": "CSSヒントテキスト"
+  },
+  "cssSaveButton": {
+    "message": "保存",
+    "description": "CSS保存ボタンのテキスト"
+  },
+  "cssResetButton": {
+    "message": "デフォルトに戻す",
+    "description": "CSSリセットボタンのテキスト"
+  },
+  "cssSaveSuccess": {
+    "message": "カスタムCSSを保存しました",
+    "description": "CSS保存成功メッセージ"
+  },
+  "cssResetConfirm": {
+    "message": "デフォルトスタイルに戻しますか？",
+    "description": "CSSリセット確認メッセージ"
+  },
+  "cssResetSuccess": {
+    "message": "デフォルトスタイルに戻しました",
+    "description": "CSSリセット成功メッセージ"
+  },
+  "exportImportTitle": {
+    "message": "エクスポート・インポート",
+    "description": "エクスポート・インポートセクションのタイトル"
+  },
+  "exportButton": {
+    "message": "TSVにエクスポート",
+    "description": "エクスポートボタンのテキスト"
+  },
+  "exportDescription": {
+    "message": "保存されている履歴をTSVファイルとしてダウンロードします",
+    "description": "エクスポート操作の説明"
+  },
+  "importTsvButton": {
+    "message": "TSVからインポート",
+    "description": "TSVインポートボタンのテキスト"
+  },
+  "importTsvDescription": {
+    "message": "TSVファイルから履歴をインポートします",
+    "description": "TSVインポート操作の説明"
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "extensionName": {
+    "message": "Perma-Recall Link",
+    "description": "Name of the extension"
+  },
+  "extensionDescription": {
+    "message": "Permanently saves browsing history beyond Chrome's 90-day limit and visually marks visited links",
+    "description": "Description of the extension"
+  },
+  "extensionTitle": {
+    "message": "Perma-Recall Link Settings",
+    "description": "Title of the extension"
+  },
+  "popupTitle": {
+    "message": "Perma-Recall Link",
+    "description": "Popup title"
+  },
+  "popupSubtitle": {
+    "message": "History Management Settings",
+    "description": "Popup subtitle"
+  },
+  "statsTitle": {
+    "message": "Statistics",
+    "description": "Statistics section title"
+  },
+  "statsUrlCount": {
+    "message": "Saved URLs:",
+    "description": "URL count label"
+  },
+  "statsLastImport": {
+    "message": "Last Import:",
+    "description": "Last import time label"
+  },
+  "statsLoading": {
+    "message": "Loading...",
+    "description": "Loading text"
+  },
+  "statsNotExecuted": {
+    "message": "Not executed",
+    "description": "Not executed text"
+  },
+  "actionsTitle": {
+    "message": "History Actions",
+    "description": "Actions section title"
+  },
+  "importButton": {
+    "message": "Re-import History",
+    "description": "Import button text"
+  },
+  "importDescription": {
+    "message": "Re-import browsing history from the past 90 days into IndexedDB",
+    "description": "Import action description"
+  },
+  "clearButton": {
+    "message": "Clear History",
+    "description": "Clear button text"
+  },
+  "clearDescription": {
+    "message": "Delete all saved browsing history data (Warning: This cannot be undone)",
+    "description": "Clear action description"
+  },
+  "importConfirm": {
+    "message": "Re-import history from the past 90 days?\nExisting data will be preserved and new URLs will be added.",
+    "description": "Import confirmation message"
+  },
+  "clearConfirm": {
+    "message": "This will only clear the history saved by this extension, not your browser's history. Are you sure?",
+    "description": "Clear confirmation message"
+  },
+  "statusImporting": {
+    "message": "Importing history...",
+    "description": "Importing status"
+  },
+  "statusClearing": {
+    "message": "Clearing history...",
+    "description": "Clearing status"
+  },
+  "statusImportComplete": {
+    "message": "Import complete: Processed $COUNT$ URLs",
+    "description": "Import complete message",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1000"
+      }
+    }
+  },
+  "statusClearComplete": {
+    "message": "All history data has been deleted",
+    "description": "Clear complete message"
+  },
+  "statusError": {
+    "message": "Error: $ERROR$",
+    "description": "Error message",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Database error"
+      }
+    }
+  },
+  "progressImporting": {
+    "message": "Importing...",
+    "description": "Progress importing text"
+  },
+  "progressClearing": {
+    "message": "Clearing...",
+    "description": "Progress clearing text"
+  },
+  "progressComplete": {
+    "message": "Complete",
+    "description": "Progress complete text"
+  },
+  "version": {
+    "message": "Version $VERSION$",
+    "description": "Version display",
+    "placeholders": {
+      "version": {
+        "content": "$1",
+        "example": "1.0.0"
+      }
+    }
+  },
+  "cssSettingsTitle": {
+    "message": "Style Settings",
+    "description": "CSS style settings section title"
+  },
+  "cssPreviewLabel": {
+    "message": "Preview:",
+    "description": "CSS preview label"
+  },
+  "cssPreviewLink": {
+    "message": "Example visited link",
+    "description": "CSS preview link text"
+  },
+  "cssInputLabel": {
+    "message": "Custom CSS:",
+    "description": "CSS input label"
+  },
+  "cssHint": {
+    "message": "※ Enter custom CSS. If blank, no style will be applied (useful when combining with other extensions like site-specific CSS tools).",
+    "description": "CSS hint text"
+  },
+  "cssSaveButton": {
+    "message": "Save",
+    "description": "CSS save button text"
+  },
+  "cssResetButton": {
+    "message": "Reset to Default",
+    "description": "CSS reset button text"
+  },
+  "cssSaveSuccess": {
+    "message": "Custom CSS saved successfully",
+    "description": "CSS save success message"
+  },
+  "cssResetConfirm": {
+    "message": "Reset to default style?",
+    "description": "CSS reset confirmation message"
+  },
+  "cssResetSuccess": {
+    "message": "Reset to default style",
+    "description": "CSS reset success message"
+  },
+  "exportImportTitle": {
+    "message": "Export & Import",
+    "description": "Export and import section title"
+  },
+  "exportButton": {
+    "message": "Export to TSV",
+    "description": "Export button text"
+  },
+  "exportDescription": {
+    "message": "Download saved history as a TSV file",
+    "description": "Export action description"
+  },
+  "importTsvButton": {
+    "message": "Import from TSV",
+    "description": "TSV import button text"
+  },
+  "importTsvDescription": {
+    "message": "Import history from a TSV file",
+    "description": "TSV import action description"
+  }
+}

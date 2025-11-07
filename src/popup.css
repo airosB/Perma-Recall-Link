@@ -1,0 +1,307 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  width: 400px;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.container {
+  background-color: white;
+  padding: 0;
+}
+
+/* ヘッダー */
+header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* セクション */
+section {
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+section:last-of-type {
+  border-bottom: none;
+}
+
+h2 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+/* 統計情報 */
+.stats {
+  background-color: #fafafa;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 13px;
+}
+
+.stat-label {
+  color: #666;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: #333;
+}
+
+/* アクション */
+.actions {
+  padding: 20px;
+}
+
+.action-item {
+  margin-bottom: 20px;
+}
+
+.action-item:last-child {
+  margin-bottom: 0;
+}
+
+.action-description {
+  font-size: 11px;
+  color: #777;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+/* ボタン */
+.btn {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-icon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #63408a 100%);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #de7ce6 0%, #e04555 100%);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #a8b8d8 0%, #8a9db7 100%);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #93a3c3 0%, #7588a2 100%);
+}
+
+/* CSS設定 */
+.css-settings {
+  padding: 20px;
+}
+
+.css-preview {
+  margin-bottom: 15px;
+  padding: 12px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+
+.css-preview p {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.preview-link {
+  display: inline-block;
+  font-size: 14px;
+  text-decoration: none;
+  color: #1976d2;
+  cursor: default;
+}
+
+.css-input-group {
+  margin-bottom: 15px;
+}
+
+.css-input-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.css-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  resize: vertical;
+  background-color: #f8f8f8;
+  color: #333;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.css-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  background-color: white;
+}
+
+.css-hint {
+  font-size: 11px;
+  color: #777;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.css-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.css-actions .btn {
+  flex: 1;
+}
+
+/* ステータスメッセージ */
+.status {
+  padding: 0 20px 20px 20px;
+}
+
+.status-message {
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  text-align: center;
+  margin-bottom: 10px;
+  display: none;
+}
+
+.status-message.info {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #90caf9;
+}
+
+.status-message.success {
+  background-color: #e8f5e9;
+  color: #388e3c;
+  border: 1px solid #81c784;
+}
+
+.status-message.error {
+  background-color: #ffebee;
+  color: #d32f2f;
+  border: 1px solid #ef9a9a;
+}
+
+/* プログレスバー */
+.progress-bar {
+  width: 100%;
+  height: 30px;
+  background-color: #e0e0e0;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.3s ease;
+  border-radius: 15px;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+}
+
+/* フッター */
+footer {
+  padding: 10px 20px;
+  text-align: center;
+  background-color: #fafafa;
+  border-top: 1px solid #e0e0e0;
+}
+
+.version {
+  font-size: 11px;
+  color: #999;
+}

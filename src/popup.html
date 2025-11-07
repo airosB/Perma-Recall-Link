@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="popupTitle">Perma-Recall Link</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 data-i18n="popupTitle">Perma-Recall Link</h1>
+      <p class="subtitle" data-i18n="popupSubtitle">履歴管理設定</p>
+    </header>
+
+    <section class="stats">
+      <h2 data-i18n="statsTitle">統計情報</h2>
+      <div class="stat-item">
+        <span class="stat-label" data-i18n="statsUrlCount">保存済みURL数:</span>
+        <span class="stat-value" id="urlCount" data-i18n="statsLoading">読み込み中...</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label" data-i18n="statsLastImport">最終インポート:</span>
+        <span class="stat-value" id="lastImport" data-i18n="statsNotExecuted">未実行</span>
+      </div>
+    </section>
+
+    <section class="actions">
+      <h2 data-i18n="actionsTitle">履歴操作</h2>
+
+      <div class="action-item">
+        <button id="importBtn" class="btn btn-primary">
+          <span class="btn-icon">📥</span>
+          <span data-i18n="importButton">履歴を再インポート</span>
+        </button>
+        <p class="action-description" data-i18n="importDescription">
+          過去90日分の訪問履歴を再度IndexedDBにインポートします
+        </p>
+      </div>
+
+      <div class="action-item">
+        <button id="clearBtn" class="btn btn-danger">
+          <span class="btn-icon">🗑️</span>
+          <span data-i18n="clearButton">履歴をクリア</span>
+        </button>
+        <p class="action-description" data-i18n="clearDescription">
+          保存されている全ての訪問履歴データを削除します（注意：元に戻せません）
+        </p>
+      </div>
+    </section>
+
+    <section class="actions">
+      <h2 data-i18n="exportImportTitle">エクスポート・インポート</h2>
+
+      <div class="action-item">
+        <button id="exportBtn" class="btn btn-primary">
+          <span class="btn-icon">📤</span>
+          <span data-i18n="exportButton">TSVにエクスポート</span>
+        </button>
+        <p class="action-description" data-i18n="exportDescription">
+          保存されている履歴をTSVファイルとしてダウンロードします
+        </p>
+      </div>
+
+      <div class="action-item">
+        <button id="importTsvBtn" class="btn btn-primary">
+          <span class="btn-icon">📥</span>
+          <span data-i18n="importTsvButton">TSVからインポート</span>
+        </button>
+        <input type="file" id="tsvFileInput" accept=".tsv,.txt" style="display: none;">
+        <p class="action-description" data-i18n="importTsvDescription">
+          TSVファイルから履歴をインポートします
+        </p>
+      </div>
+    </section>
+
+    <section class="css-settings">
+      <h2 data-i18n="cssSettingsTitle">スタイル設定</h2>
+
+      <div class="css-preview">
+        <p data-i18n="cssPreviewLabel">プレビュー:</p>
+        <a href="#" class="preview-link extension-recalled" id="previewLink" data-i18n="cssPreviewLink">訪問済みリンクの例</a>
+      </div>
+
+      <div class="css-input-group">
+        <label for="customCss" data-i18n="cssInputLabel">カスタムCSS:</label>
+        <textarea id="customCss" class="css-textarea" rows="8"></textarea>
+        <p class="css-hint" data-i18n="cssHint">※ カスタムCSSを入力してください。空白の場合はスタイルが適用されません。</p>
+      </div>
+
+      <div class="css-actions">
+        <button id="saveCssBtn" class="btn btn-primary">
+          <span class="btn-icon">💾</span>
+          <span data-i18n="cssSaveButton">保存</span>
+        </button>
+        <button id="resetCssBtn" class="btn btn-secondary">
+          <span class="btn-icon">🔄</span>
+          <span data-i18n="cssResetButton">デフォルトに戻す</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="status">
+      <div id="statusMessage" class="status-message"></div>
+      <div id="progressBar" class="progress-bar" style="display: none;">
+        <div class="progress-fill" id="progressFill"></div>
+        <span class="progress-text" id="progressText">0%</span>
+      </div>
+    </section>
+
+    <footer>
+      <p class="version" id="versionText">Version 1.0.0</p>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
