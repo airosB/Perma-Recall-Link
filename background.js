@@ -4,6 +4,7 @@ const DB_VERSION = 1;
 const STORE_NAME = 'VisitedLinks';
 
 let db = null;
+let dbInitPromise = null; // DB初期化のPromiseを保持
 
 // インポート進行状況を追跡
 let importProgress = {
@@ -14,11 +15,17 @@ let importProgress = {
 
 // IndexedDBの初期化
 function initDB() {
-  return new Promise((resolve, reject) => {
+  // 既に初期化中または完了している場合は、そのPromiseを返す
+  if (dbInitPromise) {
+    return dbInitPromise;
+  }
+
+  dbInitPromise = new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
 
     request.onerror = () => {
       console.error('IndexedDB open error:', request.error);
+      dbInitPromise = null; // エラー時はリセット
       reject(request.error);
     };
 
@@ -39,16 +46,22 @@ function initDB() {
       }
     };
   });
+
+  return dbInitPromise;
 }
 
 // URLをIndexedDBに追加
-function addUrlToDB(url) {
-  return new Promise((resolve, reject) => {
-    if (!db) {
-      reject(new Error('Database not initialized'));
-      return;
+async function addUrlToDB(url) {
+  // DBが初期化されていない場合は初期化を待つ
+  if (!db) {
+    try {
+      await initDB();
+    } catch (error) {
+      throw new Error('Failed to initialize database: ' + error.message);
     }
+  }
 
+  return new Promise((resolve, reject) => {
     try {
       const transaction = db.transaction([STORE_NAME], 'readwrite');
       const store = transaction.objectStore(STORE_NAME);
@@ -63,13 +76,17 @@ function addUrlToDB(url) {
 }
 
 // URLがIndexedDBに存在するかチェック
-function checkUrlInDB(url) {
-  return new Promise((resolve, reject) => {
-    if (!db) {
-      reject(new Error('Database not initialized'));
-      return;
+async function checkUrlInDB(url) {
+  // DBが初期化されていない場合は初期化を待つ
+  if (!db) {
+    try {
+      await initDB();
+    } catch (error) {
+      throw new Error('Failed to initialize database: ' + error.message);
     }
+  }
 
+  return new Promise((resolve, reject) => {
     try {
       const transaction = db.transaction([STORE_NAME], 'readonly');
       const store = transaction.objectStore(STORE_NAME);
@@ -175,13 +192,17 @@ chrome.history.onVisited.addListener((historyItem) => {
 });
 
 // DB内のURL数を取得
-function getUrlCount() {
-  return new Promise((resolve, reject) => {
-    if (!db) {
-      reject(new Error('Database not initialized'));
-      return;
+async function getUrlCount() {
+  // DBが初期化されていない場合は初期化を待つ
+  if (!db) {
+    try {
+      await initDB();
+    } catch (error) {
+      throw new Error('Failed to initialize database: ' + error.message);
     }
+  }
 
+  return new Promise((resolve, reject) => {
     try {
       const transaction = db.transaction([STORE_NAME], 'readonly');
       const store = transaction.objectStore(STORE_NAME);
@@ -196,13 +217,17 @@ function getUrlCount() {
 }
 
 // DBをクリア
-function clearAllUrls() {
-  return new Promise((resolve, reject) => {
-    if (!db) {
-      reject(new Error('Database not initialized'));
-      return;
+async function clearAllUrls() {
+  // DBが初期化されていない場合は初期化を待つ
+  if (!db) {
+    try {
+      await initDB();
+    } catch (error) {
+      throw new Error('Failed to initialize database: ' + error.message);
     }
+  }
 
+  return new Promise((resolve, reject) => {
     try {
       const transaction = db.transaction([STORE_NAME], 'readwrite');
       const store = transaction.objectStore(STORE_NAME);
