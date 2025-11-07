@@ -1,0 +1,128 @@
+{
+  "extensionName": {
+    "message": "Perma-Recall Link",
+    "description": "Name of the extension"
+  },
+  "extensionDescription": {
+    "message": "Permanently saves browsing history beyond Chrome's 90-day limit and visually marks visited links",
+    "description": "Description of the extension"
+  },
+  "extensionTitle": {
+    "message": "Perma-Recall Link Settings",
+    "description": "Title of the extension"
+  },
+  "popupTitle": {
+    "message": "Perma-Recall Link",
+    "description": "Popup title"
+  },
+  "popupSubtitle": {
+    "message": "History Management Settings",
+    "description": "Popup subtitle"
+  },
+  "statsTitle": {
+    "message": "Statistics",
+    "description": "Statistics section title"
+  },
+  "statsUrlCount": {
+    "message": "Saved URLs:",
+    "description": "URL count label"
+  },
+  "statsLastImport": {
+    "message": "Last Import:",
+    "description": "Last import time label"
+  },
+  "statsLoading": {
+    "message": "Loading...",
+    "description": "Loading text"
+  },
+  "statsNotExecuted": {
+    "message": "Not executed",
+    "description": "Not executed text"
+  },
+  "actionsTitle": {
+    "message": "History Actions",
+    "description": "Actions section title"
+  },
+  "importButton": {
+    "message": "Re-import History",
+    "description": "Import button text"
+  },
+  "importDescription": {
+    "message": "Re-import browsing history from the past 90 days into IndexedDB",
+    "description": "Import action description"
+  },
+  "clearButton": {
+    "message": "Clear History",
+    "description": "Clear button text"
+  },
+  "clearDescription": {
+    "message": "Delete all saved browsing history data (Warning: This cannot be undone)",
+    "description": "Clear action description"
+  },
+  "importConfirm": {
+    "message": "Re-import history from the past 90 days?\nExisting data will be preserved and new URLs will be added.",
+    "description": "Import confirmation message"
+  },
+  "clearConfirm": {
+    "message": "Delete all saved browsing history data?\n\n⚠️ This action cannot be undone!",
+    "description": "Clear confirmation message"
+  },
+  "clearConfirm2": {
+    "message": "Are you sure? All data will be lost.",
+    "description": "Clear second confirmation message"
+  },
+  "statusImporting": {
+    "message": "Importing history...",
+    "description": "Importing status"
+  },
+  "statusClearing": {
+    "message": "Clearing history...",
+    "description": "Clearing status"
+  },
+  "statusImportComplete": {
+    "message": "Import complete: Processed $COUNT$ URLs",
+    "description": "Import complete message",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1000"
+      }
+    }
+  },
+  "statusClearComplete": {
+    "message": "All history data has been deleted",
+    "description": "Clear complete message"
+  },
+  "statusError": {
+    "message": "Error: $ERROR$",
+    "description": "Error message",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Database error"
+      }
+    }
+  },
+  "progressImporting": {
+    "message": "Importing...",
+    "description": "Progress importing text"
+  },
+  "progressClearing": {
+    "message": "Clearing...",
+    "description": "Progress clearing text"
+  },
+  "progressComplete": {
+    "message": "Complete",
+    "description": "Progress complete text"
+  },
+  "version": {
+    "message": "Version $VERSION$",
+    "description": "Version display",
+    "placeholders": {
+      "version": {
+        "content": "$1",
+        "example": "1.0.0"
+      }
+    }
+  }
+}

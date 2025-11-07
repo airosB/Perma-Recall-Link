@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perma-Recall Link 設定</title>
+  <title data-i18n="popupTitle">Perma-Recall Link</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Perma-Recall Link</h1>
-      <p class="subtitle">履歴管理設定</p>
+      <h1 data-i18n="popupTitle">Perma-Recall Link</h1>
+      <p class="subtitle" data-i18n="popupSubtitle">履歴管理設定</p>
     </header>
 
     <section class="stats">
-      <h2>統計情報</h2>
+      <h2 data-i18n="statsTitle">統計情報</h2>
       <div class="stat-item">
-        <span class="stat-label">保存済みURL数:</span>
-        <span class="stat-value" id="urlCount">読み込み中...</span>
+        <span class="stat-label" data-i18n="statsUrlCount">保存済みURL数:</span>
+        <span class="stat-value" id="urlCount" data-i18n="statsLoading">読み込み中...</span>
       </div>
       <div class="stat-item">
-        <span class="stat-label">最終インポート:</span>
-        <span class="stat-value" id="lastImport">未実行</span>
+        <span class="stat-label" data-i18n="statsLastImport">最終インポート:</span>
+        <span class="stat-value" id="lastImport" data-i18n="statsNotExecuted">未実行</span>
       </div>
     </section>
 
     <section class="actions">
-      <h2>履歴操作</h2>
+      <h2 data-i18n="actionsTitle">履歴操作</h2>
 
       <div class="action-item">
         <button id="importBtn" class="btn btn-primary">
           <span class="btn-icon">📥</span>
-          履歴を再インポート
+          <span data-i18n="importButton">履歴を再インポート</span>
         </button>
-        <p class="action-description">
+        <p class="action-description" data-i18n="importDescription">
           過去90日分の訪問履歴を再度IndexedDBにインポートします
         </p>
       </div>
@@ -41,9 +41,9 @@
       <div class="action-item">
         <button id="clearBtn" class="btn btn-danger">
           <span class="btn-icon">🗑️</span>
-          履歴をクリア
+          <span data-i18n="clearButton">履歴をクリア</span>
         </button>
-        <p class="action-description">
+        <p class="action-description" data-i18n="clearDescription">
           保存されている全ての訪問履歴データを削除します（注意：元に戻せません）
         </p>
       </div>
@@ -58,7 +58,7 @@
     </section>
 
     <footer>
-      <p class="version">Version 1.0.0</p>
+      <p class="version" id="versionText">Version 1.0.0</p>
     </footer>
   </div>
 

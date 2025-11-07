@@ -1,3 +1,26 @@
+// i18n関数
+function getMessage(key, substitutions) {
+  return chrome.i18n.getMessage(key, substitutions);
+}
+
+// DOM要素に多言語テキストを適用
+function localizeHtmlPage() {
+  const elements = document.querySelectorAll('[data-i18n]');
+  elements.forEach(element => {
+    const key = element.getAttribute('data-i18n');
+    const message = getMessage(key);
+    if (message) {
+      element.textContent = message;
+    }
+  });
+
+  // バージョン表示
+  const versionEl = document.getElementById('versionText');
+  if (versionEl) {
+    versionEl.textContent = getMessage('version', ['1.0.0']);
+  }
+}
+
 // DOM要素の取得
 const urlCountEl = document.getElementById('urlCount');
 const lastImportEl = document.getElementById('lastImport');
@@ -41,7 +64,7 @@ async function loadStats() {
     const response = await chrome.runtime.sendMessage({ action: 'getStats' });
 
     if (response.error) {
-      urlCountEl.textContent = 'エラー';
+      urlCountEl.textContent = 'Error';
       return;
     }
 
@@ -49,33 +72,34 @@ async function loadStats() {
 
     if (response.lastImportTime) {
       const date = new Date(response.lastImportTime);
-      lastImportEl.textContent = date.toLocaleString('ja-JP');
+      const locale = chrome.i18n.getUILanguage();
+      lastImportEl.textContent = date.toLocaleString(locale);
     } else {
-      lastImportEl.textContent = '未実行';
+      lastImportEl.textContent = getMessage('statsNotExecuted');
     }
   } catch (error) {
     console.error('Failed to load stats:', error);
-    urlCountEl.textContent = 'エラー';
+    urlCountEl.textContent = 'Error';
   }
 }
 
 // 履歴のインポート
 async function importHistory() {
-  if (!confirm('過去90日分の履歴を再インポートしますか？\n既存のデータは保持されたまま、新しいURLが追加されます。')) {
+  if (!confirm(getMessage('importConfirm'))) {
     return;
   }
 
   importBtn.disabled = true;
   clearBtn.disabled = true;
-  showStatus('履歴をインポート中...', 'info');
-  updateProgress(0, 'インポート中...');
+  showStatus(getMessage('statusImporting'), 'info');
+  updateProgress(0, getMessage('progressImporting'));
 
   try {
     // インポート開始
     const response = await chrome.runtime.sendMessage({ action: 'importHistory' });
 
     if (response.error) {
-      showStatus(`エラー: ${response.error}`, 'error');
+      showStatus(getMessage('statusError', [response.error]), 'error');
       hideProgress();
     } else {
       // 進行状況の監視
@@ -87,8 +111,8 @@ async function importHistory() {
           updateProgress(percent, `${progressResponse.imported} / ${progressResponse.total}`);
         } else {
           clearInterval(checkProgress);
-          updateProgress(100, '完了');
-          showStatus(`インポート完了: ${progressResponse.imported} 件のURLを処理しました`, 'success');
+          updateProgress(100, getMessage('progressComplete'));
+          showStatus(getMessage('statusImportComplete', [progressResponse.imported.toString()]), 'success');
 
           setTimeout(() => {
             hideProgress();
@@ -102,7 +126,7 @@ async function importHistory() {
     }
   } catch (error) {
     console.error('Import error:', error);
-    showStatus(`インポートエラー: ${error.message}`, 'error');
+    showStatus(getMessage('statusError', [error.message]), 'error');
     hideProgress();
     importBtn.disabled = false;
     clearBtn.disabled = false;
@@ -111,28 +135,28 @@ async function importHistory() {
 
 // 履歴のクリア
 async function clearHistory() {
-  if (!confirm('保存されている全ての訪問履歴データを削除しますか？\n\n⚠️ この操作は元に戻せません！')) {
+  if (!confirm(getMessage('clearConfirm'))) {
     return;
   }
 
   // 二重確認
-  if (!confirm('本当に削除しますか？全てのデータが失われます。')) {
+  if (!confirm(getMessage('clearConfirm2'))) {
     return;
   }
 
   importBtn.disabled = true;
   clearBtn.disabled = true;
-  showStatus('履歴をクリア中...', 'info');
-  updateProgress(50, 'クリア中...');
+  showStatus(getMessage('statusClearing'), 'info');
+  updateProgress(50, getMessage('progressClearing'));
 
   try {
     const response = await chrome.runtime.sendMessage({ action: 'clearHistory' });
 
     if (response.error) {
-      showStatus(`エラー: ${response.error}`, 'error');
+      showStatus(getMessage('statusError', [response.error]), 'error');
     } else {
-      updateProgress(100, '完了');
-      showStatus('履歴データを全て削除しました', 'success');
+      updateProgress(100, getMessage('progressComplete'));
+      showStatus(getMessage('statusClearComplete'), 'success');
 
       setTimeout(() => {
         hideProgress();
@@ -141,7 +165,7 @@ async function clearHistory() {
     }
   } catch (error) {
     console.error('Clear error:', error);
-    showStatus(`クリアエラー: ${error.message}`, 'error');
+    showStatus(getMessage('statusError', [error.message]), 'error');
   } finally {
     setTimeout(() => {
       importBtn.disabled = false;
@@ -156,5 +180,6 @@ clearBtn.addEventListener('click', clearHistory);
 
 // 初期化
 document.addEventListener('DOMContentLoaded', () => {
+  localizeHtmlPage();
   loadStats();
 });
