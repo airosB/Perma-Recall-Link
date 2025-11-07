@@ -143,11 +143,6 @@ async function clearHistory() {
     return;
   }
 
-  // 二重確認
-  if (!confirm(getMessage('clearConfirm2'))) {
-    return;
-  }
-
   importBtn.disabled = true;
   clearBtn.disabled = true;
   showStatus(getMessage('statusClearing'), 'info');
@@ -178,16 +173,28 @@ async function clearHistory() {
   }
 }
 
+// デフォルトCSS
+const DEFAULT_CSS = `a.extension-recalled {
+  border: 2px solid #0088AA !important;
+  border-radius: 3px !important;
+  padding: 2px 4px !important;
+  background-color: rgba(0, 136, 170, 0.05) !important;
+}`;
+
 // カスタムCSSの読み込み
 async function loadCustomCss() {
   try {
     const result = await chrome.storage.local.get(['customCss']);
-    if (result.customCss) {
+    if (result.customCss !== undefined) {
       customCssInput.value = result.customCss;
       applyPreviewCss(result.customCss);
+    } else {
+      // 初回起動時はデフォルトCSSを表示
+      customCssInput.value = DEFAULT_CSS;
     }
   } catch (error) {
     console.error('Failed to load custom CSS:', error);
+    customCssInput.value = DEFAULT_CSS;
   }
 }
 

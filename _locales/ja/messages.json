@@ -64,12 +64,8 @@
     "description": "インポート確認メッセージ"
   },
   "clearConfirm": {
-    "message": "保存されている全ての訪問履歴データを削除しますか？\n\n⚠️ この操作は元に戻せません！",
+    "message": "ブラウザの履歴は消さず、この拡張機能に保存された履歴だけをクリアします。よろしいですか？",
     "description": "クリア確認メッセージ"
-  },
-  "clearConfirm2": {
-    "message": "本当に削除しますか？全てのデータが失われます。",
-    "description": "クリア二重確認メッセージ"
   },
   "statusImporting": {
     "message": "履歴をインポート中...",

@@ -64,12 +64,8 @@
     "description": "Import confirmation message"
   },
   "clearConfirm": {
-    "message": "Delete all saved browsing history data?\n\n⚠️ This action cannot be undone!",
+    "message": "This will only clear the history saved by this extension, not your browser's history. Are you sure?",
     "description": "Clear confirmation message"
-  },
-  "clearConfirm2": {
-    "message": "Are you sure? All data will be lost.",
-    "description": "Clear second confirmation message"
   },
   "statusImporting": {
     "message": "Importing history...",
