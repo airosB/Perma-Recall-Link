@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Perma-Recall Link",
+  "version": "1.0.0",
+  "description": "Chromeの90日制限を超えて永続的に訪問履歴を保存し、訪問済みリンクを視覚的にマーク",
+  "permissions": [
+    "history",
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    },
+    "default_title": "Perma-Recall Link 設定"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

@@ -1,0 +1,27 @@
+/* 永続的に記録された訪問済みリンクのスタイル */
+a.extension-recalled {
+  color: #AA00AA !important;
+  border-bottom: 1px dotted #AA00AA !important;
+}
+
+/* ホバー時のスタイル */
+a.extension-recalled:hover {
+  color: #880088 !important;
+  border-bottom: 1px solid #880088 !important;
+}
+
+/* 訪問済みリンクに追加の視覚的フィードバック */
+a.extension-recalled::before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-right: 0;
+  transition: margin-right 0.2s ease;
+}
+
+/* アクセシビリティ: フォーカス時のスタイル */
+a.extension-recalled:focus {
+  outline: 2px solid #AA00AA !important;
+  outline-offset: 2px !important;
+}
