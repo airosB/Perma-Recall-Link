@@ -172,6 +172,12 @@ function markLink(link, isVisited) {
 
 // ページ内の全リンクを処理
 async function processLinks() {
+  // 拡張機能コンテキストが無効な場合は処理を中止
+  if (!chrome.runtime?.id) {
+    console.warn('Extension context invalidated, stopping link processing');
+    return;
+  }
+
   const links = document.querySelectorAll('a[href]');
 
   if (links.length === 0) return;
@@ -181,22 +187,32 @@ async function processLinks() {
   const urls = [];
 
   links.forEach(link => {
-    const href = link.href;
-    if (!href || href.startsWith('javascript:') || href.startsWith('#')) {
-      return;
-    }
+    try {
+      const href = link.href;
+      if (!href || href.startsWith('javascript:') || href.startsWith('#')) {
+        return;
+      }
 
-    const normalizedUrl = normalizeUrl(href);
-    if (!urlToLinks.has(normalizedUrl)) {
-      urlToLinks.set(normalizedUrl, []);
-      urls.push(normalizedUrl);
+      const normalizedUrl = normalizeUrl(href);
+      if (!urlToLinks.has(normalizedUrl)) {
+        urlToLinks.set(normalizedUrl, []);
+        urls.push(normalizedUrl);
+      }
+      urlToLinks.get(normalizedUrl).push(link);
+    } catch (error) {
+      // URL正規化エラーは無視
     }
-    urlToLinks.get(normalizedUrl).push(link);
   });
 
   // バッチ処理で効率化
   const batchSize = 50;
   for (let i = 0; i < urls.length; i += batchSize) {
+    // 各バッチ処理前にコンテキストをチェック
+    if (!chrome.runtime?.id) {
+      console.warn('Extension context invalidated during batch processing');
+      break;
+    }
+
     const batch = urls.slice(i, i + batchSize);
     const results = await checkUrlsBatch(batch);
 
@@ -209,6 +225,13 @@ async function processLinks() {
 
 // Mutation ObserverでDOM変更を監視
 const observer = new MutationObserver((mutations) => {
+  // 拡張機能コンテキストが無効な場合は処理を中止
+  if (!chrome.runtime?.id) {
+    console.warn('Extension context invalidated, stopping mutation observer');
+    observer.disconnect();
+    return;
+  }
+
   let hasNewLinks = false;
 
   for (const mutation of mutations) {
@@ -228,6 +251,11 @@ const observer = new MutationObserver((mutations) => {
     // デバウンス処理
     clearTimeout(observer.timeoutId);
     observer.timeoutId = setTimeout(() => {
+      // タイムアウト実行時にもコンテキストをチェック
+      if (!chrome.runtime?.id) {
+        console.warn('Extension context invalidated, skipping link processing');
+        return;
+      }
       processLinks();
     }, 300);
   }
