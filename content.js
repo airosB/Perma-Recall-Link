@@ -29,7 +29,7 @@ async function loadAndApplyCustomCss() {
   try {
     // 拡張機能コンテキストが有効かチェック
     if (!chrome.runtime?.id) {
-      console.warn('Extension context invalidated, skipping CSS load');
+      console.log('Extension context invalidated, skipping CSS load');
       return;
     }
 
@@ -38,7 +38,7 @@ async function loadAndApplyCustomCss() {
       injectCustomCss(result.customCss);
     }
   } catch (error) {
-    console.warn('Failed to load custom CSS:', error.message);
+    console.log('Failed to load custom CSS:', error.message);
   }
 }
 
@@ -73,7 +73,7 @@ async function checkUrlVisited(url) {
     try {
       // 拡張機能コンテキストが有効かチェック
       if (!chrome.runtime?.id) {
-        console.warn('Extension context invalidated, skipping URL check');
+        console.log('Extension context invalidated, skipping URL check');
         pendingChecks.delete(normalizedUrl);
         resolve(false);
         return;
@@ -83,7 +83,7 @@ async function checkUrlVisited(url) {
         { action: 'checkUrl', url: normalizedUrl },
         (response) => {
           if (chrome.runtime.lastError) {
-            console.warn('Error checking URL:', chrome.runtime.lastError.message);
+            console.log('Error checking URL:', chrome.runtime.lastError.message);
             pendingChecks.delete(normalizedUrl);
             resolve(false);
             return;
@@ -98,7 +98,7 @@ async function checkUrlVisited(url) {
         }
       );
     } catch (error) {
-      console.warn('Exception in checkUrlVisited:', error.message);
+      console.log('Exception in checkUrlVisited:', error.message);
       pendingChecks.delete(normalizedUrl);
       resolve(false);
     }
@@ -126,7 +126,7 @@ async function checkUrlsBatch(urls) {
     try {
       // 拡張機能コンテキストが有効かチェック
       if (!chrome.runtime?.id) {
-        console.warn('Extension context invalidated, skipping URL check');
+        console.log('Extension context invalidated, skipping URL check');
         resolve(uniqueUrls.map(url => ({ url, isVisited: false })));
         return;
       }
@@ -135,7 +135,7 @@ async function checkUrlsBatch(urls) {
         { action: 'checkUrls', urls: uncachedUrls },
         (response) => {
           if (chrome.runtime.lastError) {
-            console.warn('Error checking URLs:', chrome.runtime.lastError.message);
+            console.log('Error checking URLs:', chrome.runtime.lastError.message);
             resolve(uniqueUrls.map(url => ({ url, isVisited: false })));
             return;
           }
@@ -157,7 +157,7 @@ async function checkUrlsBatch(urls) {
         }
       );
     } catch (error) {
-      console.warn('Exception in checkUrlsBatch:', error.message);
+      console.log('Exception in checkUrlsBatch:', error.message);
       resolve(uniqueUrls.map(url => ({ url, isVisited: false })));
     }
   });
@@ -174,7 +174,7 @@ function markLink(link, isVisited) {
 async function processLinks() {
   // 拡張機能コンテキストが無効な場合は処理を中止
   if (!chrome.runtime?.id) {
-    console.warn('Extension context invalidated, stopping link processing');
+    console.log('Extension context invalidated, stopping link processing');
     return;
   }
 
@@ -209,7 +209,7 @@ async function processLinks() {
   for (let i = 0; i < urls.length; i += batchSize) {
     // 各バッチ処理前にコンテキストをチェック
     if (!chrome.runtime?.id) {
-      console.warn('Extension context invalidated during batch processing');
+      console.log('Extension context invalidated during batch processing');
       break;
     }
 
@@ -227,7 +227,7 @@ async function processLinks() {
 const observer = new MutationObserver((mutations) => {
   // 拡張機能コンテキストが無効な場合は処理を中止
   if (!chrome.runtime?.id) {
-    console.warn('Extension context invalidated, stopping mutation observer');
+    console.log('Extension context invalidated, stopping mutation observer');
     observer.disconnect();
     return;
   }
@@ -253,7 +253,7 @@ const observer = new MutationObserver((mutations) => {
     observer.timeoutId = setTimeout(() => {
       // タイムアウト実行時にもコンテキストをチェック
       if (!chrome.runtime?.id) {
-        console.warn('Extension context invalidated, skipping link processing');
+        console.log('Extension context invalidated, skipping link processing');
         return;
       }
       processLinks();
