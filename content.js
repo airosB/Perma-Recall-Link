@@ -233,6 +233,23 @@ const observer = new MutationObserver((mutations) => {
   }
 });
 
+// 特定のURLにマッチするリンクにクラスを追加
+function markUrlAsVisited(url) {
+  const normalizedUrl = normalizeUrl(url);
+
+  // キャッシュに保存
+  urlCache.set(normalizedUrl, true);
+
+  // ページ内の全てのリンクをチェック
+  const links = document.querySelectorAll('a[href]');
+  links.forEach(link => {
+    const linkUrl = normalizeUrl(link.href);
+    if (linkUrl === normalizedUrl && !link.classList.contains(VISITED_CLASS)) {
+      link.classList.add(VISITED_CLASS);
+    }
+  });
+}
+
 // 初期化
 function initialize() {
   // カスタムCSSを読み込んで適用
@@ -250,10 +267,14 @@ function initialize() {
   console.log('Perma-Recall Link initialized');
 }
 
-// ポップアップからのCSSアップデートメッセージをリッスン
+// バックグラウンドとポップアップからのメッセージをリッスン
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'updateCss') {
     injectCustomCss(request.css);
+    sendResponse({ success: true });
+  } else if (request.action === 'markUrlAsVisited') {
+    // 履歴に追加されたURLを即座にマーク
+    markUrlAsVisited(request.url);
     sendResponse({ success: true });
   }
 });

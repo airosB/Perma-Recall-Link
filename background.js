@@ -188,6 +188,20 @@ chrome.history.onVisited.addListener((historyItem) => {
     addUrlToDB(historyItem.url).catch(err => {
       console.error('Failed to add visited URL:', err);
     });
+
+    // 全てのタブにURLが訪問済みになったことを通知
+    chrome.tabs.query({}).then(tabs => {
+      tabs.forEach(tab => {
+        chrome.tabs.sendMessage(tab.id, {
+          action: 'markUrlAsVisited',
+          url: historyItem.url
+        }).catch(() => {
+          // タブがコンテンツスクリプトを持っていない場合はエラーを無視
+        });
+      });
+    }).catch(err => {
+      console.error('Failed to notify tabs:', err);
+    });
   }
 });
 
