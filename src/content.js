@@ -5,7 +5,7 @@ const urlCache = new Map();
 const pendingChecks = new Map();
 
 // CSSクラス名
-const VISITED_CLASS = 'extension-recalled';
+const VISITED_CLASS = 'extension-perma-recalled';
 
 // カスタムCSSをページに注入
 function injectCustomCss(css) {

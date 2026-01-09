@@ -28,7 +28,7 @@ Chrome拡張機能：90日制限を超えて永続的に訪問履歴を保存し
 
 1. **初回起動時**: 過去90日分の訪問履歴を一括でIndexedDBにインポート
 2. **通常使用時**: 新しく訪問したページを自動的に記録
-3. **ページ閲覧時**: ページ内のすべてのリンクをチェックし、訪問済みリンクに `extension-recalled` クラスを付与
+3. **ページ閲覧時**: ページ内のすべてのリンクをチェックし、訪問済みリンクに `extension-perma-recalled` クラスを付与
 
 ## 技術仕様
 
@@ -77,7 +77,7 @@ src/
 
 **デフォルトスタイルの例**:
 ```css
-a.extension-recalled {
+a.extension-perma-recalled {
   border: 2px solid #0088AA !important;
   border-radius: 3px !important;
   padding: 2px 4px !important;

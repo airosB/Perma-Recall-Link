@@ -177,7 +177,7 @@ async function clearHistory() {
 }
 
 // デフォルトCSS
-const DEFAULT_CSS = `a.extension-recalled {
+const DEFAULT_CSS = `a.extension-perma-recalled {
   border: 2px solid #0088AA !important;
   border-radius: 3px !important;
   padding: 2px 4px !important;
