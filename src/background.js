@@ -182,26 +182,44 @@ chrome.runtime.onInstalled.addListener(() => {
 // サービスワーカー起動時
 initialize();
 
+// URLを処理してDBに追加し、タブに通知する共通関数
+async function processVisitedUrl(url) {
+  if (!url) return;
+
+  try {
+    await addUrlToDB(url);
+
+    // 全てのタブにURLが訪問済みになったことを通知
+    const tabs = await chrome.tabs.query({});
+    const notifications = tabs.map(tab =>
+      chrome.tabs.sendMessage(tab.id, {
+        action: 'markUrlAsVisited',
+        url: url
+      }).catch(() => {
+        // タブがコンテンツスクリプトを持っていない場合はエラーを無視
+      })
+    );
+    await Promise.all(notifications);
+  } catch (err) {
+    console.error('Failed to process visited URL:', url, err);
+  }
+}
+
 // 新しい履歴アイテムをリアルタイムで追加
 chrome.history.onVisited.addListener((historyItem) => {
   if (historyItem.url) {
-    addUrlToDB(historyItem.url).catch(err => {
-      console.error('Failed to add visited URL:', err);
-    });
+    processVisitedUrl(historyItem.url);
+  }
+});
 
-    // 全てのタブにURLが訪問済みになったことを通知
-    chrome.tabs.query({}).then(tabs => {
-      tabs.forEach(tab => {
-        chrome.tabs.sendMessage(tab.id, {
-          action: 'markUrlAsVisited',
-          url: historyItem.url
-        }).catch(() => {
-          // タブがコンテンツスクリプトを持っていない場合はエラーを無視
-        });
-      });
-    }).catch(err => {
-      console.error('Failed to notify tabs:', err);
-    });
+// タブの更新を監視してバックグラウンドで開かれたタブも処理
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  // ページの読み込みが完了し、有効なURLがある場合のみ処理
+  if (changeInfo.status === 'complete' && changeInfo.url &&
+      !changeInfo.url.startsWith('chrome://') &&
+      !changeInfo.url.startsWith('chrome-extension://') &&
+      !changeInfo.url.startsWith('about:')) {
+    processVisitedUrl(changeInfo.url);
   }
 });
 
